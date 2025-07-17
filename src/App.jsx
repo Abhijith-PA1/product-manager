@@ -9,19 +9,20 @@ import ProductList from "./Pages/ProductList";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-// import { useContext } from "react";
-// import { tokenAuthContext } from "./ContextAPI/AuthContext";
+import { useContext } from "react";
+import { tokenAuthContext } from "./ContextAPI/TokenAuth";
+
 
 function App() {
-  // const { AuthContext,setAuthContext } = useContext(tokenAuthContext)
+  const { isAuthorized, setIsAuthorized } = useContext(tokenAuthContext)
   return (
     <>
       <Header />
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/productlist" element={<ProductList/>} />
-        <Route path="/addproduct" element={<AddProduct />} />
-        <Route path="/editproduct" element={<EditProduct />} />
+        <Route path="/addproduct" element={isAuthorized?<AddProduct />:<Home/>} />
+        <Route path="/editproduct" element={isAuthorized?<EditProduct />:<Home/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         {/* rediruct to home */}
